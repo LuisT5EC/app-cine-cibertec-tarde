@@ -12,7 +12,6 @@
     <div class="card-body">
         <button type="button" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Nuevo</button>
-
         <table class="table">
             <thead>
             <tr>
@@ -29,5 +28,32 @@
         </table>
     </div>
 </div>
+<!-- Modal -->
+<div  class="modal fade" id="modalregistro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mantenimiento Estado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="txtdescestado" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="txtdescestado">
+                    <input type="hidden" value="0" id="hddidestado">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btnguardar" type="button" class="btn btn-primary">
+                    <i class="bi bi-floppy-fill"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
