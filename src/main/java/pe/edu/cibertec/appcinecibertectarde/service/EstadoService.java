@@ -6,6 +6,7 @@ import pe.edu.cibertec.appcinecibertectarde.model.bd.Estado;
 import pe.edu.cibertec.appcinecibertectarde.model.response.ResultadoResponse;
 import pe.edu.cibertec.appcinecibertectarde.repository.EstadoRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -19,15 +20,34 @@ public class EstadoService {
     }
 
     public ResultadoResponse registrarEstado(Estado estado){
+        boolean respuesta = true;
+        String mensaje = "Estado registrado correctamente";
         if(estado.getIdestado().equals(0)){
             estado.setIdestado(null);
         }
-        estadoRepository.save(estado);
-        return null;
+        try{
+            estadoRepository.save(estado);
+        }catch (Exception ex){
+            respuesta = false;
+            mensaje = "Estado NO registrado";
+        }
+        return ResultadoResponse.builder()
+                .respuesta(respuesta)
+                .mensaje(mensaje).build();
     }
 
-    public void eliminarEstado(Integer idestado){
-        estadoRepository.deleteById(idestado);
+    public ResultadoResponse eliminarEstado(Integer idestado){
+        boolean respuesta = true;
+        String mensaje = "Estado eliminado correctamente";
+        try{
+            estadoRepository.deleteById(idestado);
+        }catch (Exception ex){
+            respuesta = false;
+            mensaje = "Estado NO eliminado";
+        }
+        return ResultadoResponse.builder()
+                .respuesta(respuesta)
+                .mensaje(mensaje).build();
     }
 
 
