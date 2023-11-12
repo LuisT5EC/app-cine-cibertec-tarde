@@ -39,8 +39,22 @@ function listarEstados(){
         url: "/administracion/estado/listar",
         dataType: "json",
         success: function(resultado){
-            console.log(resultado);
+            $("#tblestado > tbody").html("");
+            $.each(resultado, function(index, value){
+                $("#tblestado > tbody").append("<tr>"+
+                    "<td>"+value.idestado+"</td>"+
+                    "<td>"+value.descestado+"</td>"+
+                    "<td>"+
+                    "<button type='button' class='btn btn-info btnactualizar' "+
+                    "data-idestado='"+value.idestado+"' "+
+                    "data-descestado='"+value.descestado+"'>"+
+                    "<i class='bi bi-pencil-square'></i></button>"+
+                    "</td>"+
+                    "<td>"+
+
+                    "</td>"+
+                    "</tr>");
+            });
         }
     });
-
 }
