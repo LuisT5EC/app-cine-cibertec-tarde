@@ -11,7 +11,28 @@ $(document).on("click", ".btnactualizar", function(){
 });
 
 $(document).on("click", ".btneliminar", function(){
-   $("#modalregistro").modal("show");
+   $("#lblmensajeeliminar").text("¿Está seguro de eliminar: "+
+        $(this).attr("data-descestado")+"?");
+   $("#hddideliminar").val($(this).attr("data-idestado"));
+   $("#modaleliminar").modal("show");
+});
+
+$(document).on("click", "#btneliminar", function(){
+   $.ajax({
+   type: "DELETE",
+   contentType: "application/json",
+   url: "/administracion/estado/eliminar",
+   data: JSON.stringify({
+       idestado: $("#hddideliminar").val()
+   }),
+   success: function(resultado){
+        if(resultado.respuesta){
+            listarEstados();
+        }
+        alert(resultado.mensaje);
+        $("#modaleliminar").modal("hide");
+   }
+   });
 });
 
 $(document).on("click", "#btnguardar", function(){
@@ -51,7 +72,10 @@ function listarEstados(){
                     "<i class='bi bi-pencil-square'></i></button>"+
                     "</td>"+
                     "<td>"+
-
+                    "<button type='button' class='btn btn-danger btneliminar' "+
+                    "data-idestado='"+value.idestado+"' "+
+                    "data-descestado='"+value.descestado+"'>"+
+                    "<i class='bi bi-trash-fill'></i></button>"+
                     "</td>"+
                     "</tr>");
             });
