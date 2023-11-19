@@ -3,6 +3,7 @@ package pe.edu.cibertec.appcinecibertectarde.model.bd;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
