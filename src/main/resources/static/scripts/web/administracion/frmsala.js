@@ -7,7 +7,12 @@ $(document).on("click", "#btnnuevo", function(){
         url: "/administracion/estado/listar",
         dataType: "json",
         success: function(resultado){
-
+            $("#cboestado").empty();
+            $.each(resultado, function(index, estado){
+                $("#cboestado").append(
+                    `<option value="${estado.idestado}">${estado.descestado}</option>`
+                )
+            })
         }
     });
     $("#modalregistro").modal("show");
@@ -17,13 +22,28 @@ $(document).on("click", ".btnactualizar", function(){
    $("#txtdescsala").val($(this).attr("data-descsala"));
    $("#hddidsala").val($(this).attr("data-idsala"));
    $("#txtasientos").val($(this).attr("data-asientos"));
+   var idestado = $(this).attr("data-idestado");
+   $.ajax({
+        type: "GET",
+        url: "/administracion/estado/listar",
+        dataType: "json",
+        success: function(resultado){
+            $("#cboestado").empty();
+            $.each(resultado, function(index, estado){
+                $("#cboestado").append(
+                    `<option value="${estado.idestado}">${estado.descestado}</option>`
+                );
+            });
+            $("#cboestado").val(idestado);
+        }
+    });
    $("#modalregistro").modal("show");
 });
 $(document).on("click", "#btnguardar", function(){
    $.ajax({
    type: "POST",
    contentType: "application/json",
-   url: "/administracion/estado/registrar",
+   url: "/administracion/sala/registrar",
    data: JSON.stringify({
        idsala: $("#hddidsala").val(),
        descsala: $("#txtdescsala").val(),
