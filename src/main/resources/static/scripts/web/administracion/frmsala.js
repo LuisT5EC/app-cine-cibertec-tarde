@@ -2,6 +2,14 @@ $(document).on("click", "#btnnuevo", function(){
     $("#txtdescsala").val("");
     $("#hddidsala").val("0");
     $("#txtasientos").val("");
+    $.ajax({
+        type: "GET",
+        url: "/administracion/estado/listar",
+        dataType: "json",
+        success: function(resultado){
+
+        }
+    });
     $("#modalregistro").modal("show");
 });
 
@@ -24,7 +32,7 @@ $(document).on("click", "#btnguardar", function(){
    }),
    success: function(resultado){
         if(resultado.respuesta){
-            listarEstados();
+            listarSalas();
         }
         alert(resultado.mensaje);
         $("#modalregistro").modal("hide");
@@ -32,28 +40,26 @@ $(document).on("click", "#btnguardar", function(){
    });
 });
 
-function listarEstados(){
+function listarSalas(){
     $.ajax({
         type: "GET",
-        url: "/administracion/estado/listar",
+        url: "/administracion/sala/listar",
         dataType: "json",
         success: function(resultado){
-            $("#tblestado > tbody").html("");
+            $("#tblsala > tbody").html("");
             $.each(resultado, function(index, value){
-                $("#tblestado > tbody").append("<tr>"+
-                    "<td>"+value.idestado+"</td>"+
-                    "<td>"+value.descestado+"</td>"+
+                $("#tblsala > tbody").append("<tr>"+
+                    "<td>"+value.idsala+"</td>"+
+                    "<td>"+value.descsala+"</td>"+
+                    "<td>"+value.asientos+"</td>"+
+                    "<td>"+value.estado.descestado+"</td>"+
                     "<td>"+
                     "<button type='button' class='btn btn-info btnactualizar' "+
-                    "data-idestado='"+value.idestado+"' "+
-                    "data-descestado='"+value.descestado+"'>"+
+                    "data-idsala='"+value.idsala+"' "+
+                    "data-descsala='"+value.descsala+"' "+
+                    "data-asientos='"+value.asientos+"' "+
+                    "data-idestado='"+value.estado.idestado+"'>"+
                     "<i class='bi bi-pencil-square'></i></button>"+
-                    "</td>"+
-                    "<td>"+
-                    "<button type='button' class='btn btn-danger btneliminar' "+
-                    "data-idestado='"+value.idestado+"' "+
-                    "data-descestado='"+value.descestado+"'>"+
-                    "<i class='bi bi-trash-fill'></i></button>"+
                     "</td>"+
                     "</tr>");
             });
